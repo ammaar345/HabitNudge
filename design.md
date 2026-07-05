@@ -1,167 +1,118 @@
-# HabitNudge — Design System
+# HabitNudge — Design Direction (v2)
+
+Last updated: 2026-07-02
+Based on sneaky's session direction: sharp/modern, thin elegant icons, matrix rain, futuristic digital feel.
 
 ## Philosophy
-Dark as space. Neon as stars. Streaks are the galaxy you build.
-Every completed habit is a spark of light. The longer the streak, the brighter the constellation.
+Matrix rain meets sharp Swiss design. Every interaction should feel like a high-end developer tool from a cyberpunk universe. Nothing feels "whipped up in 5 minutes." The app breathes, has depth, and rewards every tap with tactile feedback.
 
-## Style
-- **Name**: Dark Neon / HUD
-- **Mode**: Dark only. No light mode.
-- **Keywords**: Cyberpunk, HUD, streak glow, neon rings, terminal, dark, matrix, sci-fi
+## Aesthetic Keywords
+Matrix rain, futuristic, sharp geometry, thin elegant strokes, faded black gradient, digital glow, 3D depth, immersive, tactile sound feedback.
 
 ## Color Palette
 
 | Role | Hex | Usage |
 |------|-----|-------|
-| Background | #050505 | App background, void of space |
-| Surface | #0E0E12 | Cards, panels, elevated surfaces |
-| Surface Elevated | #1A1A23 | Action sheets, modals, dropdowns |
-| Border Subtle | #2A2A35 | Dividers, inactive borders |
-| Border Active | #3D3D4D | Hover/focus borders |
-| Text Primary | #F0F0F0 | Headlines, primary content |
-| Text Secondary | #8B8B99 | Body, descriptions, placeholders |
-| Text Muted | #4A4A55 | Disabled, timestamps, metadata |
-| Neon Green | #39FF14 | Streak active, completion pulse, success |
-| Neon Cyan | #00F0FF | Primary actions, links, active states |
-| Neon Pink | #FF007F | Milestones, achievements, celebration |
-| Neon Amber | #FFB800 | Warning, streak at risk, urgency |
-| Neon Red | #FF3333 | Failure, broken streak, destructive |
-
-## Gradients
-- **Streak Ring**: `conic-gradient(#39FF14 0%, #39FF14 var(--percent), #2A2A35 var(--percent), #2A2A35 100%)`
-- **Neon Glow**: `0 0 10px #39FF14, 0 0 40px rgba(57,255,20,0.3)`
-- **Milestone Burst**: Radial gradient from center with multiple neon colors
+| Background | `#000000` | True black, base void |
+| Surface | `#0A0A0A` | Slightly lifted from pure black |
+| Surface Elevated | `#111111` | Modals, active states |
+| Border | `rgba(255,255,255,0.04)` | Ultra-subtle dividers |
+| Border Active | `rgba(57,255,20,0.2)` | Matrix green active borders |
+| Text Primary | `#F0F0F0` | Headlines, primary content |
+| Text Secondary | `#888888` | Body, descriptions |
+| Text Muted | `#555555` | Disabled, metadata |
+| Matrix Green | `#39FF14` | Primary accent, rain, streaks |
+| Crimson Red | `#FF2D55` | Secondary accent, milestones, alerts |
 
 ## Typography
-- **Display/Headlines**: Orbitron (700, 900) — sci-fi, HUD feel
-- **Body/UI**: Inter (400, 500, 600) — clean, readable
-- **Numbers/Streaks**: JetBrains Mono (400, 700) — monospace for data, counts, timers
-- **Scale**:
-  - Display: 48px (streak count), 32px (screen titles)
-  - Headline: 24px (section titles)
-  - Title: 18px (card titles)
-  - Body: 16px (description, habit names)
-  - Caption: 12px (metadata, timestamps)
-  - Mono Large: 64px (giant streak number on ring center)
+- **Headings/Body**: Satoshi (sharp geometric sans-serif)
+  - Weights: 700 (headings), 500 (body), 400 (labels)
+  - Sharp letterforms, premium feel, NOT generic Inter
+- **Numbers/Mono**: JetBrains Mono (400, 700)
+- **Base size**: 16px body. Headings scale with `tracking-tight`.
+- **Anti-pattern**: No rounded fonts, no Inter, no serifs on UI
 
-## Spacing System
-- Base unit: 4px
-- Card padding: 16px (4 units)
-- Card gap: 12px (3 units)
-- Section gap: 24px (6 units)
-- Screen padding: 16px horizontal, 20px top
-- Touch target: 48px minimum
+## Icons
+- **Style**: Ultra-thin stroke (1px), square linecaps, precise geometry
+- **Custom SVGs only** — NO emoji, NO Lucide, NO Heroicons, NO generic
+- **Grid**: 16x16 viewBox for nav, 20x20 for inline, consistent alignment
+- **Each icon feels "engineered"** — minimal lines, sharp intersections
+
+## Matrix Rain System
+- Canvas-based full-screen overlay
+- Green characters (katakana + ASCII + numbers) falling in columns
+- Default opacity: 0.02-0.05 (atmospheric whisper)
+- Intensifies briefly on tab switches (flash to 0.15 for 300ms)
+- Perpetual but never distracting
+
+## Sound Effects (Web Audio API)
+- All synthetic — no audio files needed
+- Tap: quick 800Hz sine click (30ms)
+- Toggle: dual-tone ping 600+900Hz (80ms)
+- Page switch: rising sweep 300->1200Hz (120ms)
+- Volume: low (-15dB), users barely conscious of it
+
+## Navigation (Bottom Tabs)
+- Active tab: subtle 3D perspective (rotateX: -5deg, slight translateZ)
+- Matrix rain flash overlay on every tab switch
+- Active icon: green characters falling within icon bounds
+- Slide transitions between screens with direction awareness
+- Labels pulse green glow on activation
+
+## Animation Principles
+- Spring physics: stiffness 200-400, damping 20-30
+- Entrances: staggered fade + slide (never just opacity alone)
+- Exits: ~60% of entrance duration
+- Micro-interactions: 150-300ms
+- Page transitions: 200ms with matrix flash overlay
+- Perpetual micro-animations on key elements (pulse, float, shimmer)
 
 ## Components
 
-### Streak Ring (Hero Component)
-- **Size**: 240px diameter, centered at top of dashboard
-- **Stroke**: 12px wide, rounded caps
-- **Track**: #2A2A35 (dimmed)
-- **Progress**: Gradient from Neon Green to Neon Cyan
-- **Glow**: Box-shadow with neon green blur (10px spread, 40px blur)
-- **Center**: Giant streak number in JetBrains Mono 64px, white
-- **Label below ring**: "Day Streak" in Text Secondary, 14px
-- **Animation**: Progress animates over 600ms with ease-out. Glow pulses every 3s (subtle).
+### HabitCard
+- Thin 1px border, clean, no heavy card look
+- Checkbox: 1px stroke, square corners, sharp checkmark
+- Font: Satoshi 500 for habit name, slightly larger
+- Streak number springs up on change
+- Emoji replaced with thin SVG icons
 
-### Habit Card
-- **Background**: Surface (#0E0E12)
-- **Border**: 1px solid Border Subtle, 8px radius
-- **Padding**: 16px
-- **Left**: Checkbox (32x32 circle with neon border; fills with neon green + check icon on complete)
-- **Center**: Habit name (Body, white), streak badge (small, neon green, "12 day streak")
-- **Right**: Emoji or icon for habit category (24px, text color)
-- **Tap Effect**: Scale to 0.98, border changes to Neon Cyan, 150ms
-- **Swipe Right**: Quick complete (checkbox animates fill)
-- **Swipe Left**: Edit / Delete
+### StreakRing
+- Matrix green gradient ring, sharp linecap
+- Number count-up with cubic ease-out
+- Subtle pulsing inner glow on active streak
+- 88px diameter, stroke width 5
 
-### Streak Badge
-- **Shape**: Pill, 20px height, padding 6px 12px
-- **Background**: rgba(57,255,20,0.1) (very subtle green glow)
-- **Border**: 1px solid rgba(57,255,20,0.3)
-- **Text**: Streak count in JetBrains Mono 12px, Neon Green
-- **Icon**: Flame icon (SVG, neon green)
+### MilestoneModal
+- Matrix rain intensifies behind modal
+- Sharp geometric flame icon (no rounded)
+- Crimson red accent on milestone badge
+- Text stagger entrance (headline -> badge -> button)
 
-### Completion Pulse
-- **Trigger**: Checkbox checked
-- **Effect**: Brief neon green ripple emanates from checkbox, travels outward 100px, fades
-- **Particle Burst**: Small green/cyan particles spray from checkbox (6-8 particles, 300ms)
-- **Haptic**: Confirmation tap
+### Settings
+- Custom thin gear icon (8 teeth, sharp geometry)
+- Row dividers: 1px at rgba(255,255,255,0.04)
+- Pro banner: faded matrix green + crimson gradient
 
-### Milestone Modal
-- **Trigger**: Streak hits 7, 14, 30, 60, 100
-- **Background**: Blurred dark overlay (rgba(5,5,5,0.9))
-- **Content**: Giant neon number animation, "🔥 STREAK MILESTONE 🔥" in Orbitron, share button
-- **Confetti**: Neon green/cyan/pink particles falling (canvas overlay, 2s)
+## Layout Principles
+- Left-aligned content hierarchy
+- Generous negative space (no cramming)
+- Uses `min-h-dvh` not `h-screen`
+- Consistent 8px/16px spacing increments
+- Max-width: 480px (centered on wider screens)
 
-### Bottom Navigation
-- **Background**: Surface (#0E0E12) with top border (1px, Border Subtle)
-- **Height**: 64px + safe area
-- **Items** (3):
-  1. Habits (flame icon): Active = Neon Cyan, Inactive = Text Muted
-  2. Stats (chart icon): Active = Neon Cyan, Inactive = Text Muted
-  3. Settings (gear icon): Active = Neon Cyan, Inactive = Text Muted
-- **Active Indicator**: Small neon cyan dot below active榴弹
-
-## Animations
-
-### Global
-- **Page Transitions**: Fade in, 200ms ease-out
-- **List Items**: Stagger entrance, 老舍0ms per item, 300ms duration, slide up from y:20 + fade
-
-### Micro-interactions
-- **Checkbox**: Fill scales from center, 200ms spring
-- **Streak Ring**: Progress changes animate over 600ms with slight overshoot
-- **Button Press**: Scale to 0.95, border brightens, 80ms
-- **Toast**: Slides in from top, fades after 3s
-
-### Special Effects
-- **Streak Glow**: Active streak ring pulses glow every 3s (opacity 0.6 → 1.0 → 0.6)
-- **Milestone Confetti**: Canvas-based neon particle burst on milestone
-- **Habit Complete Wave**: When all habits complete for the day, a subtle green wave travels across the screen bottom
-
-## Layouts
-
-### Dashboard Screen
-```
-[Status Bar]
-[Header: "HABITNUDGE" logo in Orbitron, neon cyan, left. Date right.]
-[Streak Ring - 240px, centered, margin-top 16px]
-[Habit List - full width, padding 16px]
-  [Habit Card x N]
-[Floating Action Button - bottom right, above nav]
-[Bottom Navigation]
-```
-
-### Stats Screen
-```
-[Header: "STATS" in Orbitron]
-[Streak Calendar - heat map, green intensity by completion]
-[Weekly Chart - bar chart, neon green bars]
-[Habit Performance - horizontal bars per habit, completion %]
-[Total Completions - big number, JetBrains Mono]
-[Bottom Navigation]
-```
-
-### Settings Screen
-```
-[Header: "SETTINGS"]
-[Pro Upgrade Banner - neon pink border, "Unlock Unlimited Habits"]
-[Account section]
-[Notifications toggle]
-[Theme (dark only, disabled but visible)]
-[About / Help]
-[Bottom Navigation]
-```
+## Anti-Patterns (Banned)
+- Purple/blue gradients (AI slop)
+- Round pill shapes used excessively
+- Thick/heavy borders (2px+)
+- Emoji as icons
+- Generic Inter font
+- Centered-everything layout
+- Loud obnoxious glows
+- Cards without borders (muddy hierarchy)
 
 ## Accessibility
-- All touch targets ≥48px
-- Color is not sole indicator (icons + text always)
-- Neon colors meet 3:1 minimum on dark backgrounds (tested)
-- `prefers-reduced-motion`: Disable confetti, pulse, and wave. Keep ring progress simple.
-- Screen reader alt text: "Streak ring, 12 of 12 habits completed, 12 day streak"
-
-## Assets Needed
-- Icons: Flame, Chart, Gear, Check, Edit, Delete, Bell, Share (all as custom SVG, 2px stroke, rounded)
-- Logo: "HABITNUDGE" text in Orbitron with subtle neon cyan glow
-- Empty State: Dark void with a single dimmed star, "Start your constellation"
+- All touch targets >= 44px
+- Color is never the sole indicator
+- Matrix green meets 3:1 on #000000 (validated)
+- prefers-reduced-motion: disables matrix rain, confetti, perpetual animations
+- Sound effects only on user gesture (no auto-play)

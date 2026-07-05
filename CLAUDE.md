@@ -1,5 +1,7 @@
 # HabitNudge — Project Status
 
+**GitHub**: https://github.com/ammaar345/HabitNudge
+
 ## Overview
 Proactive AI habit coach with neon streak visuals. Users check habits daily, build streaks, see glowing progress rings. High retention via loss aversion (break streak = pain) + milestone celebrations.
 
