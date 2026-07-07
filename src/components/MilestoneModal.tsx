@@ -20,30 +20,30 @@ export default function MilestoneModal({ streak, onDismiss }: MilestoneModalProp
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
-    const colors = ['#39FF14', '#FF2D55', '#F0F0F0']
+    const colors = ['#FF9F43', '#FF6B6B', '#6C5CE7', '#00D2A0', '#FFD93D']
     const particles: {
       x: number; y: number; vx: number; vy: number
       size: number; color: string; rotation: number; rotationSpeed: number
       gravity: number; opacity: number
     }[] = []
 
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 60; i++) {
       particles.push({
-        x: canvas.width / 2 + (Math.random() - 0.5) * 80,
+        x: canvas.width / 2 + (Math.random() - 0.5) * 100,
         y: canvas.height / 2 - 20,
-        vx: (Math.random() - 0.5) * 10,
-        vy: -3 - Math.random() * 6,
-        size: 1.5 + Math.random() * 3,
+        vx: (Math.random() - 0.5) * 12,
+        vy: -3 - Math.random() * 8,
+        size: 2 + Math.random() * 4,
         color: colors[Math.floor(Math.random() * colors.length)],
         rotation: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() - 0.5) * 0.25,
+        rotationSpeed: (Math.random() - 0.5) * 0.3,
         gravity: 0.1 + Math.random() * 0.06,
         opacity: 1,
       })
     }
 
     let frame = 0
-    const maxFrames = 100
+    const maxFrames = 120
 
     const animate = () => {
       if (!ctx || !canvas) return
@@ -77,9 +77,6 @@ export default function MilestoneModal({ streak, onDismiss }: MilestoneModalProp
 
   useEffect(() => {
     if (streak) {
-      if (typeof window.__matrixFlash === 'function') {
-        window.__matrixFlash()
-      }
       runConfetti()
     }
     return () => {
@@ -100,37 +97,37 @@ export default function MilestoneModal({ streak, onDismiss }: MilestoneModalProp
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="absolute inset-0 bg-[#000000]/95"
+          className="absolute inset-0 bg-[#0F0A1A]/95"
           onClick={onDismiss}
         />
         <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-10" />
 
         <motion.div
-          className="relative z-20 flex flex-col items-center text-center max-w-[220px]"
+          className="relative z-20 flex flex-col items-center text-center max-w-[260px]"
           initial={{ scale: 0.85, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.85, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 250, damping: 22 }}
         >
-          {/* Sharp geometric flame icon */}
+          {/* Celebration icon */}
           <motion.div
-            className="w-12 h-12 flex items-center justify-center mb-3"
+            className="w-14 h-14 flex items-center justify-center mb-4 shadow-glow-amber"
             style={{
-              border: '1px solid rgba(57,255,20,0.15)',
-              background: 'rgba(57,255,20,0.05)',
+              border: '1px solid rgba(255,159,67,0.15)',
+              background: 'linear-gradient(135deg, rgba(255,159,67,0.08) 0%, rgba(108,92,231,0.05) 100%)',
             }}
             animate={{
               boxShadow: [
-                '0 0 0px rgba(57,255,20,0)',
-                '0 0 16px rgba(57,255,20,0.2)',
-                '0 0 0px rgba(57,255,20,0)',
+                '0 0 0px rgba(255,159,67,0)',
+                '0 0 20px rgba(255,159,67,0.2)',
+                '0 0 0px rgba(255,159,67,0)',
               ],
             }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           >
             <motion.svg
-              width="22" height="22" viewBox="0 0 16 16" fill="none"
-              stroke="#39FF14" strokeWidth={1} strokeLinecap="square" strokeLinejoin="miter"
+              width="26" height="26" viewBox="0 0 16 16" fill="none"
+              stroke="#FF9F43" strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round"
               animate={{ scale: [1, 1.06, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
             >
@@ -140,45 +137,45 @@ export default function MilestoneModal({ streak, onDismiss }: MilestoneModalProp
 
           {/* Streak number */}
           <motion.h2
-            className="font-satoshi font-bold text-2xl tracking-tight text-text-primary mb-1"
+            className="font-sans font-bold text-2xl tracking-tight text-text-primary mb-2"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.25 }}
           >
-            {streak} DAY STREAK
+            {streak} Day Streak
           </motion.h2>
 
           {/* Milestone badge */}
           <motion.div
-            className="px-2 py-0.5"
+            className="px-3 py-1"
             style={{
-              border: '1px solid rgba(255,45,85,0.2)',
-              background: 'rgba(255,45,85,0.08)',
-              borderRadius: 0,
+              border: '1px solid rgba(255,217,61,0.2)',
+              background: 'rgba(255,217,61,0.08)',
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.2 }}
           >
-            <span className="text-[#FF2D55] font-mono text-[9px] font-bold uppercase tracking-wider">
+            <span className="text-[#FFD93D] font-mono text-xs font-bold uppercase tracking-wider">
               {milestone.message}
             </span>
           </motion.div>
 
           <motion.button
             onClick={onDismiss}
-            className="mt-3 px-5 py-2 text-xs font-satoshi font-semibold"
+            className="mt-4 px-6 py-2.5 text-sm font-sans font-semibold"
             style={{
-              background: 'rgba(57,255,20,0.08)',
-              border: '1px solid rgba(57,255,20,0.2)',
-              color: '#39FF14',
+              background: 'linear-gradient(135deg, rgba(255,159,67,0.1) 0%, rgba(108,92,231,0.08) 100%)',
+              border: '1px solid rgba(255,159,67,0.2)',
+              color: '#FF9F43',
             }}
             whileTap={{ scale: 0.95 }}
+            whileHover={{ boxShadow: '0 4px 20px rgba(255,159,67,0.1)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Keep going
+            Keep going &rarr;
           </motion.button>
         </motion.div>
       </motion.div>

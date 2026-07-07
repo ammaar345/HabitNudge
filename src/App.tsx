@@ -7,15 +7,14 @@ import Stats from './screens/Stats'
 import Settings from './screens/Settings'
 import BottomNav from './components/BottomNav'
 import MilestoneModal from './components/MilestoneModal'
-import MatrixRain from './components/MatrixRain'
-import { ScanlineOverlay, GridOverlay, NoiseOverlay } from './components/icons'
+import AmbientGlow from './components/AmbientGlow'
 
 const SCREEN_ORDER = ['dashboard', 'stats', 'settings'] as const
 type Screen = (typeof SCREEN_ORDER)[number]
 
 const pageVariants = {
   enter: (dir: number) => ({
-    x: dir * 30,
+    x: dir * 40,
     opacity: 0,
   }),
   center: {
@@ -23,7 +22,7 @@ const pageVariants = {
     opacity: 1,
   },
   exit: (dir: number) => ({
-    x: -dir * 30,
+    x: -dir * 40,
     opacity: 0,
   }),
 }
@@ -33,7 +32,6 @@ export default function App() {
   const [navDir, setNavDir] = useState(0)
   const sound = useSound()
 
-  // Expose sound globally so MatrixRain and other components can trigger it
   useEffect(() => {
     window.__playSound = sound.play
     return () => { delete window.__playSound }
@@ -71,15 +69,8 @@ export default function App() {
 
   return (
     <div className="min-h-dvh bg-void text-text-primary max-w-md mx-auto relative overflow-hidden">
-      {/* Matrix rain background */}
-      <MatrixRain density={0.25} speed={0.8} intensity={1} />
+      <AmbientGlow />
 
-      {/* Atmosphere overlays - layered for depth */}
-      <NoiseOverlay className="absolute inset-0 pointer-events-none z-5" />
-      <GridOverlay className="absolute inset-0 pointer-events-none z-5" />
-      <ScanlineOverlay className="absolute inset-0 pointer-events-none z-5" />
-
-      {/* Content layer */}
       <div className="relative z-10">
         <AnimatePresence mode="popLayout" custom={navDir}>
           <motion.div
@@ -89,7 +80,7 @@ export default function App() {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
             {screen === 'dashboard' && (
               <Dashboard

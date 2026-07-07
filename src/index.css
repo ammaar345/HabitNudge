@@ -1,15 +1,16 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@1,2,3,4,5,6,7,8,9&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-void text-text-primary font-satoshi antialiased;
+    @apply bg-void text-text-primary font-sans antialiased;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior: none;
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(108,92,231,0.06) 0%, transparent 60%),
+                      radial-gradient(ellipse at 20% 80%, rgba(255,159,67,0.04) 0%, transparent 50%),
+                      radial-gradient(ellipse at 80% 60%, rgba(255,107,107,0.03) 0%, transparent 50%);
   }
 
   * {
@@ -17,14 +18,13 @@
   }
 
   ::-webkit-scrollbar {
-    width: 2px;
+    width: 3px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1A1A1A;
-    border-radius: 2px;
+    background: #2A1F3F;
+    border-radius: 0;
   }
 }
-
